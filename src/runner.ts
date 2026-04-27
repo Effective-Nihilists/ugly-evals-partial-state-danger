@@ -1,4 +1,5 @@
-import { dedupe, normalize, pipeline } from './a.js';
+import { pipeline } from './a.js';
+import { dedupe, normalize } from './b.js';
 
 export function runOnce(inputs: string[]): string[] {
   return pipeline(inputs);
