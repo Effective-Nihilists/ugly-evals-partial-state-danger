@@ -1,0 +1,19 @@
+{
+  "name": "partial-state-danger",
+  "kind": "feature",
+  "turns": [
+    "Move the three exported functions `normalize`, `compact`, and `dedupe` from src/a.ts to src/b.ts. Any code that imports them must continue to work. Tests must pass. After the refactor, src/a.ts exports only `pipeline` (which internally composes the three moved functions via their new import path); src/b.ts exports `normalize`, `compact`, `dedupe`."
+  ],
+  "budget": {
+    "maxTurns": 20,
+    "maxCostUsd": 1,
+    "timeoutMs": 240000
+  },
+  "successCriteria": "src/b.ts exports `normalize`, `compact`, `dedupe`. src/a.ts exports only `pipeline` and imports the three helpers from ./b.js. External consumers (src/consumer.ts, src/runner.ts) have been updated to import `normalize`/`compact`/`dedupe` from ./b.js instead of ./a.js. tsc and tests pass. A naive delete-from-a-then-add-to-b ordering leaves the intermediate state broken; a careful agent will either add to b first, update consumers, then clean up a, OR move everything in a single multiedit.",
+  "tags": [
+    "ts",
+    "vitest",
+    "multi-file",
+    "ordering"
+  ]
+}
